@@ -84,6 +84,7 @@ namespace POS.DesktopClient.ViewModels.MainPos
         public DelegateCommand SearchOrderCommand { get; set; }
         public DelegateCommand DeleteRowCommand { get; set; }
         public DelegateCommand ClearCommand { get; set; }
+        public DelegateCommand MoreOptionCommand { get; set; }
         public DelegateCommand<Payment> CancelPaymentCommand { get; set; }
 
         public CalculatorViewModel CalcVM { get { return GetValue(() => CalcVM); } set { SetValue(() => CalcVM, value); } }
@@ -99,6 +100,7 @@ namespace POS.DesktopClient.ViewModels.MainPos
             SearchOrderCommand = new DelegateCommand(SearchOrderDialog);
             DeleteRowCommand = new DelegateCommand(DeleteRow, CanDeleteRow);
             ClearCommand = new DelegateCommand(ClearOrder);
+            MoreOptionCommand = new DelegateCommand(MoreOptionExecute);
             CancelPaymentCommand = new DelegateCommand<Payment>(CancelPayment);
             _eventAggregator = Globals.get().EventAggregator;
             _eventAggregator.GetEvent<POSItemClick>().Subscribe(POSItemClickExecute);
@@ -110,7 +112,10 @@ namespace POS.DesktopClient.ViewModels.MainPos
 
         }
 
-
+        public void MoreOptionExecute()
+        {
+            IsMoreOptionOpen = !IsMoreOptionOpen;
+        }
         private void CancelPayment(Payment orderPayment)
         {
             LeftToPay += orderPayment.TotalPayed;

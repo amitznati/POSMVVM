@@ -25,7 +25,7 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Button Background="{DynamicResource AccentColorBrush3}" Content="9" FontSize="20" Grid.Column="0" Grid.Row="1" Margin="2" Command="{Binding NumberClickCommand}" CommandParameter="9" IsEnabled="{Binding IsNumberEnable}"/>
+        <Button Content="9" FontSize="20" Grid.Column="0" Grid.Row="1" Margin="2" Command="{Binding NumberClickCommand}" CommandParameter="9" IsEnabled="{Binding IsNumberEnable}"/>
         <Button Content="8" FontSize="20"  Grid.Column="1" Grid.Row="1" Margin="2" Command="{Binding NumberClickCommand}" CommandParameter="8" IsEnabled="{Binding IsNumberEnable}"/>
         <Button Content="7" FontSize="20"  Grid.Column="2" Grid.Row="1" Margin="2" Command="{Binding NumberClickCommand}" CommandParameter="7" IsEnabled="{Binding IsNumberEnable}"/>
         <Button Content="6" FontSize="20"  Grid.Column="0" Grid.Row="2" Margin="2" Command="{Binding NumberClickCommand}" CommandParameter="6" IsEnabled="{Binding IsNumberEnable}"/>

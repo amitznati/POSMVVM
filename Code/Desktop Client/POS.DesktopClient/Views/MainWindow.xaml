@@ -14,7 +14,7 @@
              d:DesignHeight="1000" d:DesignWidth="1000" FlowDirection="RightToLeft"
                       UseNoneWindowStyle="True"
                       IgnoreTaskbarOnMaximize="True"
-                      WindowState="Maximized" Background="#FF064A9A">
+                      WindowState="Maximized" >
     <Grid >
         <Grid.RowDefinitions>
             <RowDefinition Height="200"/>
@@ -36,14 +36,14 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Button Style="{DynamicResource MyTileStyle}" Content="עמדת מכירה" Grid.Row="1" Grid.RowSpan="2" Grid.Column="1" Margin="3" Command="{Binding OpenFlyoutCommand}" CommandParameter="MainPos" Background="#CC37A230"/>
-            <Button Style="{DynamicResource MyTileStyle}" Content="ניהול" Grid.Row="1" Grid.RowSpan="2" Grid.Column="2" Margin="3" Command="{Binding OpenFlyoutCommand}" CommandParameter="Management" Background="#CC034B23"/>
+            <Button Style="{DynamicResource MyTileStyle}" Content="עמדת מכירה" Grid.Row="1" Grid.RowSpan="2" Grid.Column="1" Margin="3" Command="{Binding OpenFlyoutCommand}" CommandParameter="MainPos"/>
+            <Button Style="{DynamicResource MyTileStyle}" Content="ניהול" Grid.Row="1" Grid.RowSpan="2" Grid.Column="2" Margin="3" Command="{Binding OpenFlyoutCommand}" CommandParameter="Management" />
             <Button Style="{DynamicResource MyTileStyle}" Content="עריכת תפריט" Grid.Row="1" Grid.Column="3" Margin="3" Command="{Binding OpenFlyoutCommand}" CommandParameter="EditPos"/>
-            <Button Style="{DynamicResource MyTileStyle}" Content="הקלדת נוכחות" Grid.Row="3" Grid.Column="2" Margin="3" Command="{Binding TypeAttendanceCommand}" Background="#CCDAAD11"/>
-            <Button Style="{DynamicResource MyTileStyle}" Content="דוח X" Grid.Row="3" Grid.Column="1" Margin="3" Command="{Binding XReportCommand}" Background="#CC11DAA6"/>
-            <Button Style="{DynamicResource MyTileStyle}" Content="סגירת יום" Grid.Row="2" Grid.Column="3" Grid.RowSpan="2" Margin="3" Command="{Binding CloseDayCommand}" Background="#CC72BDDC"/>
+            <Button Style="{DynamicResource MyTileStyle}" Content="הקלדת נוכחות" Grid.Row="3" Grid.Column="2" Margin="3" Command="{Binding TypeAttendanceCommand}" />
+            <Button Style="{DynamicResource MyTileStyle}" Content="דוח X" Grid.Row="3" Grid.Column="1" Margin="3" Command="{Binding XReportCommand}" />
+            <Button Style="{DynamicResource MyTileStyle}" Content="סגירת יום" Grid.Row="2" Grid.Column="3" Grid.RowSpan="2" Margin="3" Command="{Binding CloseDayCommand}" />
         </Grid>
-        <Button Width="100" Height="100" Content="יציאה" Click="Button_Click"/>
+        <Button Style="{DynamicResource MyTileStyle}" Width="100" Height="100" Content="יציאה" Click="Button_Click"/>
         <Controls:FlyoutsControl x:Name="flyoutsControl" Grid.RowSpan="3">
             <Controls:Flyout IsOpen="{Binding IsMainPosOpen}" TitleVisibility="Hidden"  Width="{Binding ActualWidth, ElementName=flyoutsControl, Mode=OneWay}" Theme="Adapt" Controls:ControlsHelper.HeaderMargin="10" Controls:ControlsHelper.HeaderFontSize="10" >
                 <MainPosViews:MainPOSView DataContext="{Binding MainPOSViewModel}"/>

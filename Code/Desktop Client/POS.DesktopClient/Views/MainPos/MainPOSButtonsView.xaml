@@ -317,7 +317,7 @@
 
         <Button   Grid.Column="5" Grid.RowSpan="2" Background="{DynamicResource AccentColorBrush}" Content="&lt;-"  
                   Style="{StaticResource MetroCircleButtonStyle}" Height="50" Width="50"
-                  Command="{Binding SearchOrderCommand}"/>
+                  Command="{Binding MoreOptionCommand}"/>
 
         <controls:FlyoutsControl x:Name="flyoutsControl" Grid.ColumnSpan="6" Grid.RowSpan="2" Width="{Binding ActualWidth, ElementName=userControl, Mode=OneWay}">
             <controls:Flyout IsOpen="{Binding IsMoreOptionOpen}"   Theme="Dark" TitleVisibility="Collapsed" CloseButtonVisibility="Collapsed" AnimateOpacity="True" Width="{Binding ActualWidth, ElementName=flyoutsControl, Mode=OneWay}" >
@@ -627,7 +627,7 @@
 
                     <Button   Grid.Column="5" Grid.RowSpan="2" Background="{DynamicResource AccentColorBrush}" Content="&lt;-"  
                   Style="{StaticResource MetroCircleButtonStyle}" Height="50" Width="50"
-                  Command="{Binding SearchOrderCommand}"/>
+                  Command="{Binding MoreOptionCommand}"/>
                 </Grid>
             </controls:Flyout>
         </controls:FlyoutsControl>
