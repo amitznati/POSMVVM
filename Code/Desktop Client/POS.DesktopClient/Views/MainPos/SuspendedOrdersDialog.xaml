@@ -1,0 +1,42 @@
+﻿<control:MetroWindow x:Class="POS.DesktopClient.Views.MainPos.SuspendedOrdersDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:control="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:p="clr-namespace:POS.DesktopClient.Properties"
+        xmlns:system="clr-namespace:System;assembly=mscorlib"
+        xmlns:vm="clr-namespace:POS.DesktopClient.Views.MainPos"  
+        mc:Ignorable="d" 
+        d:DataContext="{d:DesignInstance vm:SuspendedOrdersDialog}"
+        Title="SuspendedOrdersDialog" Height="300" Width="500" Style="{DynamicResource MetroDialogStyle}" WindowStartupLocation="CenterScreen" SizeToContent="Height">
+    <Grid>
+        <StackPanel Orientation="Vertical">
+            <DataGrid ItemsSource="{Binding SuspendedOrders}" SelectedItem="{Binding SelectedOrder}" AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="{x:Static p:Resources.CustomerName}" Binding="{Binding Customer.FullName}"/>
+                    <DataGridTextColumn Header="{x:Static p:Resources.EmployeeName}" Binding="{Binding Employee.FullName}"/>
+                    <DataGridTextColumn Header="{x:Static p:Resources.AMOUNT}" Binding="{Binding TotalPayment, ConverterCulture='He',StringFormat={}{0:C}}"/>
+                </DataGrid.Columns>
+                <DataGrid.RowDetailsTemplate>
+                    <DataTemplate>
+                        <Expander >
+                            <DataGrid ItemsSource="{Binding OrderLines}" AutoGenerateColumns="False">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn  Header="מוצר" Binding="{Binding Product.prodName}"/>
+                                    <DataGridTextColumn Header="מחיר יח" Binding="{Binding prodUnitPrice, StringFormat={}{0:C},ConverterCulture='He'}"/>
+                                    <DataGridTextColumn Header="כמות" Binding="{Binding quantity}"/>
+                                    <DataGridTextColumn Header="סהכ" Binding="{Binding prodTotalPrice, StringFormat={}{0:C},ConverterCulture='He'}"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </Expander>
+                    </DataTemplate>
+                </DataGrid.RowDetailsTemplate>
+            </DataGrid>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
+                <Button Click="Button_Click" Style="{DynamicResource MyTileStyle}" Content="אישור" HorizontalAlignment="Center" Width="100"/>
+                <Button IsCancel="True" Style="{DynamicResource MyTileStyle}" Content="ביטול" HorizontalAlignment="Center" Background="#CCDA2411" Width="100"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</control:MetroWindow>

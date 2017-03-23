@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="5d8533d752fc48fa87e1cebaa217d652" Name="Diagram1">
+        <EntityTypeShape EntityType="POS5Model.Address" Width="1.5" PointX="0.75" PointY="9.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="POS5Model.Cashier" Width="1.5" PointX="5.25" PointY="14.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="POS5Model.CashPayment" Width="1.5" PointX="12" PointY="13" IsExpanded="true" />
+        <EntityTypeShape EntityType="POS5Model.Contact" Width="1.5" PointX="5.25" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="POS5Model.CreditPayment" Width="1.5" PointX="12" PointY="15.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="POS5Model.CreditPaymentsDetail" Width="1.5" PointX="14.25" PointY="15.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="POS5Model.Customer" Width="1.5" PointX="5.25" PointY="11.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="POS5Model.DailyAttendance" Width="1.5" PointX="7.5" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="POS5Model.Department" Width="1.5" PointX="10.5" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="POS5Model.Employee" Width="1.5" PointX="5.25" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="POS5Model.EmployeeSalery" Width="1.5" PointX="10.5" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="POS5Model.Group" Width="1.5" PointX="10.5" PointY="9.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="POS5Model.ItemDisplayInfo" Width="1.5" PointX="10.5" PointY="22.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="POS5Model.Menu" Width="1.5" PointX="8.25" PointY="23.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="POS5Model.Order" Width="1.5" PointX="7.5" PointY="12.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="POS5Model.OrderLine" Width="1.5" PointX="15" PointY="11.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="POS5Model.Payment" Width="1.5" PointX="9.75" PointY="14.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="POS5Model.Person" Width="1.5" PointX="3" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="POS5Model.PersonType" Width="1.5" PointX="0.75" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="POS5Model.Product" Width="1.5" PointX="12.75" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="POS5Model.Role" Width="1.5" PointX="3" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="POS5Model.SaleryType" Width="1.5" PointX="8.25" PointY="2.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="POS5Model.StoreInfo" Width="1.5" PointX="3" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="POS5Model.sysdiagram" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="POS5Model.Tax" Width="1.5" PointX="5.25" PointY="17.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="POS5Model.Vendor" Width="1.5" PointX="7.5" PointY="9.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="POS5Model.ZReport" Width="1.5" PointX="7.5" PointY="18.625" IsExpanded="true" />
+        <AssociationConnector Association="POS5Model.FK_Person_Address" ManuallyRouted="false" />
+        <AssociationConnector Association="POS5Model.FK_Vendor_Address" ManuallyRouted="false" />
+        <AssociationConnector Association="POS5Model.FK_Cashier_StoreInfo" ManuallyRouted="false" />
+        <AssociationConnector Association="POS5Model.FK_Order_Cashier" ManuallyRouted="false" />
+        <AssociationConnector Association="POS5Model.FK_CreditPaymentsDetails_CreditPayment" ManuallyRouted="false" />
+        <AssociationConnector Association="POS5Model.FK_Order_Customer" ManuallyRouted="false" />
+        <AssociationConnector Association="POS5Model.FK_DailyAttendance_Employee" ManuallyRouted="false" />
+        <AssociationConnector Association="POS5Model.FK_Group_Department" ManuallyRouted="false" />
+        <AssociationConnector Association="POS5Model.FK_Product_Department" ManuallyRouted="false" />
+        <AssociationConnector Association="POS5Model.FK_Employee_Role" ManuallyRouted="false" />
+        <AssociationConnector Association="POS5Model.FK_EmployeeSalery_Employee" ManuallyRouted="false" />
+        <AssociationConnector Association="POS5Model.FK_Order_Employee" ManuallyRouted="false" />
+        <AssociationConnector Association="POS5Model.FK_ZReport_Employee" ManuallyRouted="false" />
+        <AssociationConnector Association="POS5Model.FK_EmployeeSalery_SaleryType" ManuallyRouted="false" />
+        <AssociationConnector Association="POS5Model.FK_Product_Group" ManuallyRouted="false" />
+        <AssociationConnector Association="POS5Model.FK_ItemDisplayInfo_Menu" ManuallyRouted="false" />
+        <AssociationConnector Association="POS5Model.FK_Order_StoreInfo" ManuallyRouted="false" />
+        <AssociationConnector Association="POS5Model.FK_Order_Tax" ManuallyRouted="false" />
+        <AssociationConnector Association="POS5Model.FK_Order_ZReport" ManuallyRouted="false" />
+        <AssociationConnector Association="POS5Model.FK_OrderLine_Order" ManuallyRouted="false" />
+        <AssociationConnector Association="POS5Model.FK_Payment_Order" ManuallyRouted="false" />
+        <AssociationConnector Association="POS5Model.FK_OrderLine_Product" ManuallyRouted="false" />
+        <AssociationConnector Association="POS5Model.FK_Person_PersonType" ManuallyRouted="false" />
+        <AssociationConnector Association="POS5Model.FK_Product_Vendor" ManuallyRouted="false" />
+        <AssociationConnector Association="POS5Model.RelItemDisplayInfo_Menu" ManuallyRouted="false" />
+        <AssociationConnector Association="POS5Model.RelItemDisplayInfo_Product" ManuallyRouted="false" />
+        <AssociationConnector Association="POS5Model.RelVandorContact" ManuallyRouted="false" />
+        <InheritanceConnector EntityType="POS5Model.Contact" />
+        <InheritanceConnector EntityType="POS5Model.Customer" />
+        <InheritanceConnector EntityType="POS5Model.Employee" />
+        <InheritanceConnector EntityType="POS5Model.CashPayment" />
+        <InheritanceConnector EntityType="POS5Model.CreditPayment" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

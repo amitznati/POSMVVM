@@ -1,0 +1,99 @@
+﻿<UserControl x:Name="userControl" x:Class="POS.MainPOS.Views.MainPOSView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:views="clr-namespace:POS.MainPOS.Views"
+             xmlns:dialogs="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
+             dialogs:DialogParticipation.Register="{Binding}"
+             xmlns:vm="clr-namespace:POS.MainPOS.ViewModels"
+             mc:Ignorable="d" 
+             d:DataContext="{d:DesignInstance vm:MainPOSViewModel}"
+             d:DesignHeight="1000" d:DesignWidth="1000" FlowDirection="RightToLeft">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis" />
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="200"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="400"/>
+        </Grid.ColumnDefinitions>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <TextBlock Text="שם הלקוח"/>
+            <TextBlock Text="{Binding CurrentOrder.Customer.FullName}" Grid.Column="1" Margin="5"/>
+            <TextBlock Text="שם העובד" Grid.Row="1"/>
+            <TextBlock Text="{Binding CurrentOrder.Employee.FullName}" Grid.Column="1" Grid.Row="1" Margin="5"/>
+        </Grid>
+        <views:ItemGridForMainPOSView Grid.Row="1" Margin="5"/>
+        <Grid Grid.Row="1" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <views:BasketDataGridView  Margin="5"/>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <TextBlock Text="סהכ לפני מעמ" Margin="5" FontSize="20"/>
+                <TextBlock Text="{Binding CurrentOrder.TotalPaymentBeforeTax, StringFormat={}{0:C},ConverterCulture='He'}" Grid.Column="1" Margin="5" FontSize="20"/>
+                <TextBlock Text="מעמ" Margin="5" FontSize="20" Grid.Row="1"/>
+                <TextBlock Text="{Binding CurrentOrder.TotalTax, StringFormat={}{0:C},ConverterCulture='He'}" Grid.Column="1" Grid.Row="1" Margin="5" FontSize="20"/>
+                <TextBlock Text="סהכ לתשלום" Margin="5" FontSize="30" Grid.Row="2"/>
+                <TextBlock Text="{Binding CurrentOrder.TotalPayment, StringFormat={}{0:C},ConverterCulture='He'}" Grid.Column="1" Grid.Row="2" Margin="5" FontSize="30"/>
+            </Grid>
+            <Grid Grid.Row="2" Visibility="{Binding IsPartialPayed, Converter={StaticResource BoolToVis}}">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <ItemsControl x:Name="PartialPaymentsItems" Grid.ColumnSpan="2" ItemsSource="{Binding CurrentOrder.Payments}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="שולם" Margin="2"/>
+                                <TextBlock Text="{Binding PaymentTypeName}" Margin="2" Grid.Column="1"/>
+                                <TextBlock Text="{Binding TotalPayed, StringFormat={}{0:C},ConverterCulture='He'}" Grid.Column="2" Margin="2"/>
+                                <Button Content="בטל תשלום" Grid.Column="3" Width="100" HorizontalAlignment="Left" Margin="2" Command="{Binding ElementName=userControl,Path=DataContext.CancelPaymentCommand}" CommandParameter="{Binding Mode=OneWay}" />
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+                <TextBlock Text="נשאר לתשלום" Grid.Row="1" Margin="2"/>
+                <TextBlock Text="{Binding LeftToPay, StringFormat={}{0:C},ConverterCulture='He'}"  Grid.Column="1" Grid.Row="1" Margin="2"/>
+            </Grid>
+        </Grid>
+        <views:CalculatorView Grid.Row="2" Grid.Column="1" Margin="5" DataContext="{Binding CalcVM}"/>
+        <views:MainPOSButtonsView Grid.Row="2"  Margin="5"/>
+    </Grid>
+</UserControl>

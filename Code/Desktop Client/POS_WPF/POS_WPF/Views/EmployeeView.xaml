@@ -1,0 +1,60 @@
+﻿<UserControl x:Name="userControl" x:Class="POS_WPF.Views.EmployeeView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:p="clr-namespace:POS_WPF.Properties"
+             xmlns:views="clr-namespace:POS_WPF.Views"            
+             xmlns:vm="clr-namespace:POS_WPF.ViewModels"
+             d:DataContext="{d:DesignInstance Type=vm:EmployeeViewModel}"
+             mc:Ignorable="d" 
+             d:DesignHeight="1024" d:DesignWidth="1280" FlowDirection="RightToLeft">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis" />
+    </UserControl.Resources>
+    <ScrollViewer>
+    <Grid IsEnabled="{Binding IsToShowEditButtons}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition  Width="*"/>
+        </Grid.ColumnDefinitions>
+        <TextBlock Text="{x:Static p:Resources.ROLE}"  Margin="5"/>
+            <ComboBox Width="300" ItemsSource="{Binding Rolement, Mode=TwoWay, ValidatesOnDataErrors=True,NotifyOnValidationError=True,UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="ID" DisplayMemberPath="JobTitle"  Grid.Column="2" FlowDirection="RightToLeft"  Margin="5"
+                          SelectedValue="{Binding Entity.RoleID}" HorizontalAlignment="Left"/>
+            <ContentControl Grid.Row="1" Grid.ColumnSpan="2">
+                <views:PersonView DataContext="{Binding Entity}" />
+            </ContentControl>
+            <Grid Grid.Row="2" Grid.ColumnSpan="2">
+                <TabControl>
+                    <TabItem Header="{x:Static p:Resources.SALERY}" >
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <DataGrid IsReadOnly="True" ItemsSource="{Binding Entity.EmployeeSaleries}" AutoGenerateColumns="False">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="{x:Static p:Resources.ID}" Binding="{Binding ID}"/>
+                                    <DataGridTextColumn Header="{x:Static p:Resources.SALRYTYPE}" Binding="{Binding SaleryType.SaleryTypeName}"/>
+                                    <DataGridTextColumn Header="{x:Static p:Resources.AMOUNT}" Binding="{Binding Amount}"/>
+                                    <DataGridTextColumn Header="{x:Static p:Resources.STARTDATE}" Binding="{Binding StartDate}"/>
+                                    <DataGridTextColumn Header="{x:Static p:Resources.ENDDATE}" Binding="{Binding EndDate}"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                            <Button Content="עדכן שכר" Margin="5" Grid.Row="1" Width="100" Visibility="{Binding Path=IsToShowEditButtons, Converter={StaticResource BoolToVis}}"/>
+                        </Grid>
+                    </TabItem>
+                </TabControl>
+            </Grid>
+        </Grid>
+    </ScrollViewer>
+</UserControl>

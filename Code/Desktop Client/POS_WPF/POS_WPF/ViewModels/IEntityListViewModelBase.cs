@@ -1,0 +1,15 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Windows;
+
+namespace POS_WPF.ViewModels
+{
+    public interface IEntityListViewModelBase
+    {
+        void SaveNewEntity(object entity);
+
+        FrameworkElement getEntityView();
+    }
+}

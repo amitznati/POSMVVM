@@ -1,0 +1,55 @@
+﻿<UserControl x:Class="POS.MainPOS.Views.EditPOSMenuView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:dialogs="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
+             dialogs:DialogParticipation.Register="{Binding}"
+             xmlns:views="clr-namespace:POS.MainPOS.Views"
+             xmlns:vm="clr-namespace:POS.MainPOS.ViewModels"
+             mc:Ignorable="d" 
+             d:DataContext="{d:DesignInstance vm:EditPOSMenuViewModel}"
+             d:DesignHeight="1000" d:DesignWidth="1000" FlowDirection="RightToLeft">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="600*" />
+            <RowDefinition Height="100"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition  Width="600*"/>
+            <ColumnDefinition Width="400"/>
+        </Grid.ColumnDefinitions>
+        
+        <ContentControl Grid.Row="1">
+            <views:ItemsGrigForEdit/>
+        </ContentControl>
+        <Button Command="{Binding SelectItemCommand}" Width="100" Margin="5" Style="{StaticResource MyTileStyle}" Content="בחר פריט" Grid.Column="1" HorizontalAlignment="Center"/>
+        <ScrollViewer  Grid.Row="1" Grid.Column="1" Grid.RowSpan="2">
+        <StackPanel  VerticalAlignment="Stretch" HorizontalAlignment="Stretch" IsEnabled="{Binding CanEditItem}">
+            <ContentControl>
+                <views:ItemSizeDesignView Height="400"   VerticalAlignment="Top"/>
+            </ContentControl>
+                <Button Margin="5" Background="{StaticResource AccentColorBrush}"  Content="הוסף פריט"  Command="{Binding AddItemCommand}"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" Margin="5" Background="{StaticResource AccentColorBrush}"  Content="צבע גופן" Command="{Binding SelectFontColorCommand}" HorizontalAlignment="Center"/>
+                    <TextBlock Margin="3" Grid.Column="1" Text="גודל גופן" VerticalAlignment="Center"/>
+                    <Slider Margin="3" Grid.Column="2" VerticalAlignment="Center" Value="{Binding CurrentItemInDesign.FontSize}"/>
+                </Grid>
+                <Button Margin="5" Background="{StaticResource AccentColorBrush}"  Content="בחר צבע רקע"  Command="{Binding SelectColorCommand}"/>
+                <Button Margin="5" Background="{StaticResource AccentColorBrush}"  Content="בחר תמונה"  Command="{Binding SelectImageCommand}"/>
+        </StackPanel>
+        </ScrollViewer>
+        <Grid Grid.Row="3">
+            <StackPanel Orientation="Horizontal">
+                <Button Style="{StaticResource MyTileStyle}" Content="שמור" Height="50"  Width="100" VerticalAlignment="Top" Margin="5" Command="{Binding SaveCommand}"/>
+            </StackPanel>
+        </Grid>
+
+    </Grid>
+</UserControl>

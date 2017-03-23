@@ -1,0 +1,89 @@
+﻿<control:MetroWindow 
+    x:Class="POS.DesktopClient.Views.General.XReportDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:control="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:p="clr-namespace:POS.DesktopClient.Properties"
+        xmlns:system="clr-namespace:System;assembly=mscorlib"
+        xmlns:vm="clr-namespace:POS.DesktopClient.ViewModels.General"  
+        mc:Ignorable="d" 
+        d:DataContext="{d:DesignInstance vm:XReportDialogViewModel}"
+        Title="XReportDialog" Height="500" Width="500" Style="{StaticResource MetroDialogStyle}" WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis" />
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="{Binding ReportName,StringFormat=דוח {0}}"  Margin="10" FontSize="50" HorizontalAlignment="Center"/>
+        <ScrollViewer  Grid.Row="1">
+            <StackPanel Orientation="Vertical">
+                <TextBlock Text="{Binding XReport.Employee.FullName,StringFormat=שם העובד: {0}}" Margin="5"/>
+                <TextBlock Text="{Binding Source={x:Static system:DateTime.Now}, ConverterCulture='He', StringFormat=תאריך: {0:dddd, dd MMMM, HH:mm}}" Margin="5"/>
+                <TextBlock Text="פרוט תקבולים:" FontSize="20" Margin="5"/>
+                <ItemsControl ItemsSource="{Binding XReport.Payments}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Vertical"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding Name,StringFormat=צורת תשלום: {0}}" Margin="3" FontSize="15"/>
+                                <TextBlock Text="{Binding TotalAmount, ConverterCulture='He',StringFormat=סך: {0:C}}" Margin="3" FontSize="15"/>
+                                <TextBlock Text="{Binding Count,StringFormat=כמות: {0}}" Margin="3" FontSize="15"/>
+                                <TextBlock Text="{Binding Percentage,StringFormat=אחוז מהמכירה: {0:N2}%}" Margin="3" FontSize="15"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+                <TextBlock Text="{Binding XReport.TotalAmountForReport,ConverterCulture='He',StringFormat=סהכ לדוח: {0:C}}" FontSize="25"/>
+                <TextBlock Text="{Binding XReport.Orders.Count,StringFormat=כמות הזמנות: {0}}" Margin="3"/>
+                <TextBlock Text="סטטיסטיקה:" FontSize="20"/>
+                <TextBlock Text="סטטיסטיקה לפי מחלקות:" FontSize="12"/>
+                <DataGrid Margin="5" ItemsSource="{Binding XReport.DepartmentsStatistic}" AutoGenerateColumns="False" RowDetailsVisibilityMode="VisibleWhenSelected">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="{x:Static p:Resources.DEPARTMENT}" Binding="{Binding Name}"/>
+                        <DataGridTextColumn Header="{x:Static p:Resources.AMOUNT}" Binding="{Binding TotalAmount, ConverterCulture='He',StringFormat={}{0:C}}"/>
+                        <DataGridTextColumn Header="{x:Static p:Resources.COUNT}" Binding="{Binding Count}"/>
+                        <DataGridTextColumn Header="{x:Static p:Resources.Percentage}" Binding="{Binding Percentage,StringFormat={}{0:N2}%}"/>
+                    </DataGrid.Columns>
+                    <DataGrid.RowDetailsTemplate>
+                        <DataTemplate>
+                            <Expander>
+                                <DataGrid ItemsSource="{Binding GroupStatistic}" AutoGenerateColumns="False">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="{x:Static p:Resources.GROUP}" Binding="{Binding Name}"/>
+                                        <DataGridTextColumn Header="{x:Static p:Resources.AMOUNT}" Binding="{Binding TotalAmount, ConverterCulture='He',StringFormat={}{0:C}}"/>
+                                        <DataGridTextColumn Header="{x:Static p:Resources.COUNT}" Binding="{Binding Count}"/>
+                                        <DataGridTextColumn Header="{x:Static p:Resources.Percentage}" Binding="{Binding Percentage,StringFormat={}{0:N2}%}"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </Expander>
+                        </DataTemplate>
+                    </DataGrid.RowDetailsTemplate>
+                </DataGrid>
+                <TextBlock Text="סטטיסטיקה לפי עובדים:" FontSize="12"/>
+                <DataGrid Margin="5" ItemsSource="{Binding XReport.EmployeeStatistic}" AutoGenerateColumns="False" RowDetailsVisibilityMode="VisibleWhenSelected">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="{x:Static p:Resources.EmployeeName}" Binding="{Binding Name}"/>
+                        <DataGridTextColumn Header="{x:Static p:Resources.AMOUNT}" Binding="{Binding TotalAmount, ConverterCulture='He',StringFormat={}{0:C}}"/>
+                        <DataGridTextColumn Header="{x:Static p:Resources.COUNT}" Binding="{Binding Count}"/>
+                        <DataGridTextColumn Header="{x:Static p:Resources.Percentage}" Binding="{Binding Percentage,StringFormat={}{0:N2}%}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </StackPanel>
+        </ScrollViewer>
+        <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Center" Height="50">
+            <Button x:Name="btnOK" Click="btnOK_Click" Content="אישור" Width="100" Margin="5"/>
+            <Button x:Name="btnPrint" Click="btnPrint_Click" Content="הדפס" Width="100" Margin="5" Visibility="{Binding IsXMode, Converter={StaticResource BoolToVis}}"/>
+            <!--<Button x:Name="btnCancel" Click="btnCancel_Click" Content="בטל" Width="100" Margin="5"/>-->
+        </StackPanel>
+    </Grid>
+</control:MetroWindow>

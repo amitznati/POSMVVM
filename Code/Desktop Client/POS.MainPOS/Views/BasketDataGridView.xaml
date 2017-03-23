@@ -1,0 +1,20 @@
+﻿<UserControl x:Class="POS.MainPOS.Views.BasketDataGridView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:vm="clr-namespace:POS.MainPOS.ViewModels"
+             mc:Ignorable="d" 
+             d:DataContext="{d:DesignInstance vm:MainPOSViewModel}"
+             d:DesignHeight="300" d:DesignWidth="300" FlowDirection="RightToLeft">
+    <Grid>
+        <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding CurrentOrder.OrderLines}" SelectedValue="{Binding SelectedRow}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Width="*" Header="מוצר" Binding="{Binding Product.prodName}"/>
+                <DataGridTextColumn Header="כמות" Binding="{Binding quantity}"/>
+                <DataGridTextColumn Header="מחיר יח" Binding="{Binding prodUnitPrice, StringFormat={}{0:C},ConverterCulture='He'}"/>
+                <DataGridTextColumn Header="סהכ" Binding="{Binding prodTotalPrice, StringFormat={}{0:C},ConverterCulture='He'}"/>
+            </DataGrid.Columns>
+        </DataGrid>    
+    </Grid>
+</UserControl>

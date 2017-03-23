@@ -1,0 +1,291 @@
+﻿<Window x:Class="DataGridFilterTest.Window1"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+
+    xmlns:diagnostics="clr-namespace:System.Diagnostics;assembly=WindowsBase"
+
+    xmlns:filter="clr-namespace:DataGridFilterLibrary;assembly=DataGridFilterLibrary"
+    xmlns:local="clr-namespace:DataGridFilterTest"     
+                
+    Title="Automatic WPF Toolkit DataGrid Filtering" Name="MainWindow">
+
+    <Window.Resources>
+        <ObjectDataProvider x:Key="EmployeeData"></ObjectDataProvider>
+    </Window.Resources>
+    
+    <DockPanel>
+        
+        <DockPanel.Resources>
+            <BooleanToVisibilityConverter x:Key="BooleanToVisibility"/>
+            <local:OppositeBooleanToVisibility x:Key="oppositeBooleanToVisibility"/>
+        </DockPanel.Resources>
+        
+        <ToolBar DockPanel.Dock="Top">
+            
+            <StackPanel Margin="5" Orientation="Vertical">
+                <CheckBox IsChecked="True" Name="ShowHideFilterCheckBox">Show/Hide Filter</CheckBox>
+            </StackPanel>
+            
+            <Separator/>
+            
+            <StackPanel Margin="5" Orientation="Vertical">
+                <CheckBox IsChecked="{Binding Path=(filter:DataGridExtensions.IsFilterVisible), 
+                                              ElementName=myGrid1}">
+                    Show/Hide Filter (bind to attached property)
+                </CheckBox>
+            </StackPanel>
+            
+            <Separator/>
+            
+            <Button Command="{Binding Path=(filter:DataGridExtensions.ClearFilterCommand), 
+                                       ElementName=myGrid1}">Clear Filter
+            </Button>
+
+            <Separator/>
+            <Button Click="Button_Click_Insert_New_Position">Start inserting Employees with new position</Button>
+        </ToolBar>
+        
+        <TabControl Name="myTab">
+            
+            <TabItem Header="DataGrid with the Filter">
+                
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <DataGrid 
+                       
+                       filter:DataGridExtensions.UseBackgroundWorkerForFiltering="True"
+                        
+                       filter:DataGridExtensions.IsClearButtonVisible="False"
+                        
+                       filter:DataGridExtensions.IsFilterVisible="{Binding 
+                                                                  Path=IsChecked,
+                                                                  ElementName=ShowHideFilterCheckBox, Mode=TwoWay}"
+                        
+                       ColumnHeaderStyle="{StaticResource {ComponentResourceKey 
+		                       TypeInTargetAssembly={x:Type filter:DataGridHeaderFilterControl}, 
+		                       ResourceId=DataGridHeaderFilterControlStyle}}"
+                        
+                        AutoGenerateColumns="False"
+                        ItemsSource="{Binding Path=EmployeeList}" 
+                        Name="myGrid1" 
+                        Grid.Row="0">
+
+                            <DataGrid.Columns>
+                                
+                                <DataGridTextColumn 
+                                    filter:DataGridColumnExtensions.DoNotGenerateFilterControl="True" 
+                                    Header="Id" Binding="{Binding Path=Id}"/>
+                                
+                                <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}"/>
+                                
+                                <DataGridTextColumn Binding="{Binding Path=Email}"
+                                                               filter:DataGridColumnExtensions.IsCaseSensitiveSearch="True"
+                                                               Header="Email (Case Sensitive Search)"/>
+
+                                <DataGridTextColumn Header="Address (center align)" Binding="{Binding Path=Address}">
+                                    <DataGridTextColumn.HeaderStyle>
+                                        <Style TargetType="{x:Type DataGridColumnHeader}" 
+                                               BasedOn="{StaticResource {ComponentResourceKey TypeInTargetAssembly={x:Type filter:DataGridHeaderFilterControl}, ResourceId=DataGridHeaderFilterControlStyle}}">
+                                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                        </Style>
+                                    </DataGridTextColumn.HeaderStyle>
+                                </DataGridTextColumn>
+                        
+                                <DataGridTextColumn Header="Employee Guid" Binding="{Binding Path=EmployeeGuid}"/>
+                                <DataGridTextColumn Header="Work Experience" Binding="{Binding Path=WorkExperience}"/>
+                                
+                                <DataGridTextColumn Header="Work Experience (Between)" 
+                                                               filter:DataGridColumnExtensions.IsBetweenFilterControl="True"
+                                                               Binding="{Binding Path=WorkExperience}"/>
+
+                                <!-- 
+                                error:  Cannot find governing FrameworkElement or FrameworkContentElement for target element
+                                <DataGridComboBoxColumn
+                                  
+                                  SelectedValueBinding="{Binding Position.Id}"
+                                                                   
+                                  Header="Position"
+                                  ItemsSource="{Binding ElementName=MainWindow, Path=DataContext.EmployeePositionList, diagnostics:PresentationTraceSources.TraceLevel=High}"
+                                  DisplayMemberPath="Name"  
+                                  SelectedValuePath="Id"                                 
+                                  />
+                                -->
+                            
+                             <!-- the  worse way than this below
+                                
+                            <DataGridComboBoxColumn
+                                Header="Position (List Filter)"
+                                filter:DataGridComboBoxExtensions.UserCanEnterText="True"
+                                SelectedItemBinding="{Binding Path=Position}"
+                                ItemsSource="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Path=DataContext.EmployeePositionList}"                                                                          
+                                SelectedValuePath="Id"
+                                DisplayMemberPath="Name"/>
+                            -->
+                            <DataGridComboBoxColumn Header="Position (List Filter)"
+                                filter:DataGridComboBoxExtensions.UserCanEnterText="True"
+                                SelectedItemBinding="{Binding Path=Position}"
+                                ItemsSource="{Binding Source={StaticResource EmployeeData}, Path=EmployeePositionList}" 
+                                SelectedValuePath="Id"
+                                DisplayMemberPath="Name">
+                                <!--
+                                <DataGridComboBoxColumn.ElementStyle>
+                                    <Style TargetType="ComboBox">
+                                        <Setter Property="IsSynchronizedWithCurrentItem" Value="False" />
+                                        <Setter Property="ItemsSource" Value="{Binding Source={StaticResource EmployeeData}, Path=EmployeePositionList}" />
+                                    </Style>
+                                </DataGridComboBoxColumn.ElementStyle>
+                                <DataGridComboBoxColumn.EditingElementStyle>
+                                    <Style TargetType="ComboBox">
+                                        <Setter Property="ItemsSource" Value="{Binding Source={StaticResource EmployeeData}, Path=EmployeePositionList}" />
+                                        <Setter Property="IsDropDownOpen" Value="True" />
+                                    </Style>
+                                </DataGridComboBoxColumn.EditingElementStyle>
+                                -->
+                            </DataGridComboBoxColumn>
+
+                            <DataGridComboBoxColumn 
+                                Header="Position (Text Filter)" 
+                                filter:DataGridComboBoxExtensions.IsTextFilter="True"                                                                    
+                                SelectedItemBinding="{Binding Path=Position}"                               
+                                ItemsSource="{Binding Source={StaticResource EmployeeData}, Path=EmployeePositionList}"
+                                SelectedValuePath="Id"
+                                DisplayMemberPath="Name"/>
+
+                            <DataGridComboBoxColumn Header="Status"                                                  
+                                SelectedValueBinding="{Binding Path=EmployeeStatusId}"
+                                ItemsSource="{Binding Source={StaticResource EmployeeData}, Path=EmployeeStatuses}"
+                                SelectedValuePath="Id"
+                                DisplayMemberPath="Name"/>
+                               
+                            <DataGridTextColumn Header="Date Of Birth" Binding="{Binding Path=DateOfBirth}"/>
+                                
+                            <DataGridCheckBoxColumn Header="Interviewed" Binding="{Binding Path=IsInterviewed}"/>
+   
+                        </DataGrid.Columns>
+                        
+                    </DataGrid>
+                    
+                    <StackPanel Orientation="Horizontal" Grid.Row="1">
+                        
+                        <Label Margin="0,1,0,0">Displayed rows first tab:</Label>
+                        <Label Margin="0,1,0,0" Content="{Binding ElementName=myGrid1, Path=Items.Count, UpdateSourceTrigger=PropertyChanged}"></Label>
+
+                        
+                        <Label Margin="0,1,0,0" Visibility="{Binding IsTestDataGenerationInProgress, Converter={StaticResource BooleanToVisibility}}">Test data generation in progress...</Label>
+                        <ProgressBar Margin="0,2,0,0" Visibility="{Binding IsTestDataGenerationInProgress, Converter={StaticResource BooleanToVisibility}}" Value="{Binding TestDataGenerationPercent}" Width="300"></ProgressBar>
+                        
+                        <Label 
+                            Visibility="{Binding IsTestDataGenerationInProgress, Converter={StaticResource oppositeBooleanToVisibility}}"
+                            Margin="5,2,0,0">Number of records to generate:</Label>
+                        <TextBox Visibility="{Binding IsTestDataGenerationInProgress, Converter={StaticResource oppositeBooleanToVisibility}}"
+                            Margin="2,2,0,0" TextAlignment="Right" Width="50" Text="{Binding NumberOfRecordsToGenerate, FallbackValue=0}"></TextBox>
+                        <Button Visibility="{Binding IsTestDataGenerationInProgress, Converter={StaticResource oppositeBooleanToVisibility}}"
+                            Margin="2,2,0,0" Click="Button_Click">Generate Test Data</Button>
+                        
+                        <Label Margin="5,2,0,0">New Font Size:</Label>
+                        <TextBox Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Path=FontSize, Mode=OneTime}"  Width="30" Name="txtFontSize" Margin="2,2,0,0"></TextBox>
+                        <Button Margin="2,2,0,0" Click="Button_Click_1">Set New Font Size</Button>
+                    </StackPanel>
+                </Grid>
+                
+            </TabItem>
+
+            <TabItem Header="DataGrid with the Filter - Between + Use Background Worker">
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="25" />
+                    </Grid.RowDefinitions>
+
+                    <DataGrid 
+                       
+                       filter:DataGridExtensions.UseBackgroundWorkerForFiltering="True"
+                        
+                       filter:DataGridExtensions.IsFilterVisible="{Binding 
+                                                                  Path=IsChecked,
+                                                                  ElementName=ShowHideFilterCheckBox, Mode=TwoWay}"
+                        
+                       ColumnHeaderStyle="{StaticResource {ComponentResourceKey 
+		                       TypeInTargetAssembly={x:Type filter:DataGridHeaderFilterControl}, 
+		                       ResourceId=DataGridHeaderFilterControlStyle}}"
+                        
+                        AutoGenerateColumns="False"
+                        ItemsSource="{Binding Path=EmployeeListCopy}" 
+                        Name="myGrid2" 
+                        Grid.Row="0">
+
+                        <DataGrid.Columns>
+
+                            <DataGridTextColumn Header="Id" Binding="{Binding Path=Id}"/>
+
+                            <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}"/>
+
+                            <DataGridTextColumn Binding="{Binding Path=Email}"
+                                                           filter:DataGridColumnExtensions.IsCaseSensitiveSearch="True"
+                                                           Header="Email (Case Sensitive Search)"/>
+
+                            <DataGridTextColumn Header="Work Experience (Between)" 
+                                                           filter:DataGridColumnExtensions.IsBetweenFilterControl="True"
+                                                           Binding="{Binding Path=WorkExperience}"/>
+
+
+                            <DataGridTextColumn Header="Date Of Birth" Binding="{Binding Path=DateOfBirth}"/>
+                            
+                            <DataGridTextColumn Header="Date Of Birth (Between)" 
+                                                           filter:DataGridColumnExtensions.IsBetweenFilterControl="True"
+                                                           Binding="{Binding Path=DateOfBirth}"/>
+
+                        </DataGrid.Columns>
+
+                    </DataGrid>
+
+                    <StackPanel Orientation="Horizontal" Grid.Row="1">
+                        <Label>Displayed rows:</Label>
+                        <Label Content="{Binding ElementName=myGrid2, Path=Items.Count}"></Label>
+                        <Label Visibility="{Binding IsTestDataGenerationInProgress, Converter={StaticResource BooleanToVisibility}}">Test data generation in progress...</Label>
+                        <ProgressBar Margin="0,2,0,0" Visibility="{Binding IsTestDataGenerationInProgress, Converter={StaticResource BooleanToVisibility}}" Value="{Binding TestDataGenerationPercent}" Width="300"></ProgressBar>
+
+                        <Label 
+                            Visibility="{Binding IsTestDataGenerationInProgress, Converter={StaticResource oppositeBooleanToVisibility}}"
+                            Margin="5,2,0,0">Number of records to generate:</Label>
+                        <TextBox Visibility="{Binding IsTestDataGenerationInProgress, Converter={StaticResource oppositeBooleanToVisibility}}"
+                            Margin="2,2,0,0" TextAlignment="Right" Width="50" Text="{Binding NumberOfRecordsToGenerate, FallbackValue=0}"></TextBox>
+                        <Button Visibility="{Binding IsTestDataGenerationInProgress, Converter={StaticResource oppositeBooleanToVisibility}}"
+                            Margin="2,2,0,0" Click="Button_Click">Generate Test Data</Button>
+                    </StackPanel>
+                </Grid>
+
+            </TabItem>
+            
+            <TabItem Header="Standard DataGrid">
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="25" />
+                    </Grid.RowDefinitions>
+
+                    <DataGrid 
+                        AutoGenerateColumns="True"
+                        ItemsSource="{Binding Path=EmployeeList}" 
+                        Name="myGrid3" 
+                        Grid.Row="0"/>
+
+                    <StackPanel Orientation="Horizontal" Grid.Row="1">
+                        <Label>Displayed rows:</Label>
+                        <Label Content="{Binding ElementName=myGrid3, Path=Items.Count}"></Label>
+                    </StackPanel>
+                </Grid>
+
+            </TabItem>
+
+        </TabControl>
+        
+    </DockPanel>
+    
+</Window>

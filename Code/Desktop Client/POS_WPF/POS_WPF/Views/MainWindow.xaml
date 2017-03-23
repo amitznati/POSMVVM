@@ -1,0 +1,56 @@
+﻿<Controls:MetroWindow x:Class="POS_WPF.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"           
+        xmlns:vm="clr-namespace:POS_WPF.ViewModels"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:prism="http://prismlibrary.com/"
+        xmlns:cal="http://www.caliburnproject.org"
+        prism:ViewModelLocator.AutoWireViewModel="True"
+        xmlns:views="clr-namespace:POS_WPF.Views"
+        Title="MainWindow"         
+        WindowState="Maximized" 
+        ResizeMode="CanResizeWithGrip">
+    <Window.Resources>
+        <vm:DataListViewModel x:Key="DataListVM"/>
+    </Window.Resources>
+    <Controls:MetroWindow.Flyouts >
+        <Controls:FlyoutsControl x:Name="Flyouts">
+            <Controls:FlyoutsControl.ItemContainerStyle>
+                <Style BasedOn="{StaticResource {x:Type Controls:Flyout}}" TargetType="{x:Type Controls:Flyout}" >
+                    <Setter Property="Header" Value="{Binding Header}" />
+                    <Setter Property="Position" Value="{Binding Position}" />
+                    <Setter Property="Theme" Value="Light"/>
+                    <Setter Property="Width" Value="{Binding Path=ActualWidth,ElementName=Flyouts}"/>
+                    <Setter Property="Height" Value="{Binding Path=ActualHeight,ElementName=Flyouts}"/>
+                </Style>
+            </Controls:FlyoutsControl.ItemContainerStyle>
+            <Controls:FlyoutsControl.Items>
+                <Controls:Flyout  Header="view1" IsOpen="{Binding IsPOSOpen}">
+                    <views:MainPOSView />
+                </Controls:Flyout>
+                <Controls:Flyout  Header="view2" IsOpen="{Binding IsDataListOpen}">
+                    <views:DataListView DataContext="{Binding Source={StaticResource DataListVM}}"/>
+                </Controls:Flyout>
+            </Controls:FlyoutsControl.Items>
+        </Controls:FlyoutsControl>
+    </Controls:MetroWindow.Flyouts>
+
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Height="100" Orientation="Horizontal" FlowDirection="RightToLeft">
+            <Button x:Name="button" Content="עמדת מכירה"  Margin="5" FontSize="30"
+                Command="{Binding NavigateCommand}" Width="200" CommandParameter="{Binding MAIN_POS}" FontFamily="Segoe UI Light" FontWeight="Normal"/>
+            <Button x:Name="button1" Content="ניהול"  Margin="5" FontSize="30"
+                Command="{Binding NavigateCommand}" Width="200" CommandParameter="{Binding EMPLOYEES}" FontFamily="Segoe UI Light" FontWeight="Normal"/>
+        </StackPanel>
+        <TextBlock FontSize="30" Text="סתם משהו" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <ContentControl Grid.Row="1">
+
+        </ContentControl>
+    </Grid>
+</Controls:MetroWindow>

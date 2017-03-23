@@ -1,0 +1,35 @@
+﻿<UserControl x:Class="POS_WPF.Views.DepartmentView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:p="clr-namespace:POS_WPF.Properties"
+             xmlns:views="clr-namespace:POS_WPF.Views"
+             xmlns:vm="clr-namespace:POS_WPF.ViewModels"
+             d:DataContext="{d:DesignInstance Type=vm:DepartmentViewModel}"
+             mc:Ignorable="d" 
+             d:DesignHeight="1024" d:DesignWidth="1280" FlowDirection="RightToLeft">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis" />
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="300"/>
+        </Grid.ColumnDefinitions>
+        <TextBlock Text="{x:Static p:Resources.ID}" Margin="5"/>
+        <TextBlock Text="{Binding Entity.ID}" Grid.Column="1" Margin="5"/>
+        <TextBlock Text="{x:Static p:Resources.DEPARTMENT}" Grid.Row="1" Margin="5"/>
+        <TextBox Text="{Binding Entity.DeptName, Mode=TwoWay, ValidatesOnDataErrors=True,NotifyOnValidationError=True,UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="1" Margin="5"/>
+        <TextBlock Text="{x:Static p:Resources.GROUPS}" Grid.Row="2" Margin="5"/>
+        <ListBox Grid.Row="2" Grid.Column="1" Margin="5" ItemsSource="{Binding Entity.Groups}" DisplayMemberPath="GroupName" />
+        <Button Content="הוסף קבוצה" Grid.Column="1" Grid.Row="3" Visibility="{Binding Path=IsToShowEditButtons, Converter={StaticResource BoolToVis}}"/>
+        
+    </Grid>
+</UserControl>

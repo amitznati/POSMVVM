@@ -1,0 +1,635 @@
+﻿<UserControl x:Class="POS.DesktopClient.Views.MainPos.MainPOSButtonsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:vm="clr-namespace:POS.DesktopClient.ViewModels.MainPos"
+             xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+             mc:Ignorable="d" 
+             d:DataContext="{d:DesignInstance vm:MainPOSViewModel}"
+             d:DesignHeight="300" d:DesignWidth="700" FlowDirection="RightToLeft">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis" />
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+
+        <Button x:Name="btnCash" Style="{StaticResource MyTileStyle}" Margin="5" Command="{Binding CashCommand}">
+            <Button.Template>
+                <ControlTemplate>
+                    <Grid Background="{TemplateBinding Background}">
+                        <Rectangle Margin="10,10,10,30" >
+                            <Rectangle.Fill>
+                                <VisualBrush Visual="{StaticResource appbar_money}" Stretch="Uniform"/>
+                            </Rectangle.Fill>
+                        </Rectangle>
+                        <TextBlock FontSize="20" Text="מזומן" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="10,10,10,10"/>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="Button.IsPressed"
+                                 Value="True">
+                            <Setter Property="RenderTransform">
+                                <Setter.Value>
+                                    <ScaleTransform ScaleX="0.98"
+                                                    ScaleY="0.98"
+                                                    CenterX="0.5"
+                                                    CenterY="0.5" />
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+
+        <Button x:Name="btnCredit" Style="{StaticResource MyTileStyle}" Margin="5" Grid.Column="1" Command="{Binding CreditCommand}">
+            <Button.Template>
+                <ControlTemplate>
+                    <Grid Background="{TemplateBinding Background}">
+                        <Rectangle Margin="10,10,10,30" >
+                            <Rectangle.Fill>
+                                <VisualBrush Visual="{StaticResource appbar_creditcard}" Stretch="Uniform"/>
+                            </Rectangle.Fill>
+                        </Rectangle>
+                        <TextBlock FontSize="20" Text="אשראי" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="10,10,10,10"/>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="Button.IsPressed"
+                                 Value="True">
+                            <Setter Property="RenderTransform">
+                                <Setter.Value>
+                                    <ScaleTransform ScaleX="0.98"
+                                                    ScaleY="0.98"
+                                                    CenterX="0.5"
+                                                    CenterY="0.5" />
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+
+        <Button x:Name="btnCustomer" Style="{StaticResource MyTileStyle}" Margin="5" Grid.Column="2" Command="{Binding SelectCustomerCommand}">
+            <Button.Template>
+                <ControlTemplate>
+                    <Grid Background="{TemplateBinding Background}">
+                        <Rectangle Margin="10,10,10,30" >
+                            <Rectangle.Fill>
+                                <VisualBrush Visual="{StaticResource appbar_people}" Stretch="Uniform"/>
+                            </Rectangle.Fill>
+                        </Rectangle>
+                        <TextBlock FontSize="20" Text="לקוח" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="10,10,10,10"/>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="Button.IsPressed"
+                                 Value="True">
+                            <Setter Property="RenderTransform">
+                                <Setter.Value>
+                                    <ScaleTransform ScaleX="0.98"
+                                                    ScaleY="0.98"
+                                                    CenterX="0.5"
+                                                    CenterY="0.5" />
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+
+        <Button x:Name="btnDrawer" Style="{StaticResource MyTileStyle}" Margin="5" Grid.Column="3" Command="{Binding OpenDrawerCommand}">
+            <Button.Template>
+                <ControlTemplate>
+                    <Grid Background="{TemplateBinding Background}">
+                        <Rectangle Margin="10,10,10,30" >
+                            <Rectangle.Fill>
+                                <VisualBrush Visual="{StaticResource appbar_key}" Stretch="Uniform"/>
+                            </Rectangle.Fill>
+                        </Rectangle>
+                        <TextBlock FontSize="15" Text="פתיחת מגירה" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="10,10,10,10"/>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="Button.IsPressed"
+                                 Value="True">
+                            <Setter Property="RenderTransform">
+                                <Setter.Value>
+                                    <ScaleTransform ScaleX="0.98"
+                                                    ScaleY="0.98"
+                                                    CenterX="0.5"
+                                                    CenterY="0.5" />
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+
+        <Button x:Name="btnExit" Style="{StaticResource MyTileStyle}" Margin="5" Grid.Column="4" Command="{Binding ExitCommand}">
+            <Button.Template>
+                <ControlTemplate>
+                    <Grid Background="{TemplateBinding Background}">
+                        <Rectangle Margin="10,10,10,30" >
+                            <Rectangle.Fill>
+                                <VisualBrush Visual="{StaticResource appbar_home}" Stretch="Uniform"/>
+                            </Rectangle.Fill>
+                        </Rectangle>
+                        <TextBlock FontSize="15" Text="יציאה מהזמנה" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="10,10,10,10"/>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="Button.IsPressed"
+                                 Value="True">
+                            <Setter Property="RenderTransform">
+                                <Setter.Value>
+                                    <ScaleTransform ScaleX="0.98"
+                                                    ScaleY="0.98"
+                                                    CenterX="0.5"
+                                                    CenterY="0.5" />
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+
+        <Button x:Name="btnSearchOrder" Style="{StaticResource MyTileStyle}" Margin="5" Grid.Row="1" Grid.Column="0" Command="{Binding SearchOrderCommand}">
+            <Button.Template>
+                <ControlTemplate>
+                    <Grid Background="{TemplateBinding Background}">
+                        <Rectangle Margin="10,10,10,30" >
+                            <Rectangle.Fill>
+                                <VisualBrush Visual="{StaticResource appbar_page_search}" Stretch="Uniform"/>
+                            </Rectangle.Fill>
+                        </Rectangle>
+                        <TextBlock FontSize="15" Text="איתור הזמנות" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="10,10,10,10"/>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="Button.IsPressed"
+                                 Value="True">
+                            <Setter Property="RenderTransform">
+                                <Setter.Value>
+                                    <ScaleTransform ScaleX="0.98"
+                                                    ScaleY="0.98"
+                                                    CenterX="0.5"
+                                                    CenterY="0.5" />
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+
+        <Button x:Name="btnSuspendedOrders" Style="{StaticResource MyTileStyle}" Margin="5" Grid.Row="1" Grid.Column="1" Command="{Binding SuspendedOrdersCommand}">
+            <Button.Template>
+                <ControlTemplate>
+                    <Grid Background="{TemplateBinding Background}">
+                        <Control Width="20" Height="20" VerticalAlignment="Top" HorizontalAlignment="Right" Visibility="{Binding IsAnySuspendedOrders, Converter={StaticResource BoolToVis}}">
+                            <Control.Template>
+                                <ControlTemplate>
+                                    <Grid>
+                                        <Rectangle Fill="Red"/>
+                                        <TextBlock FontSize="15" Text="{Binding SuspendedOrdersCount}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black" FontWeight="Bold"/>
+                                    </Grid>
+                                </ControlTemplate>
+                            </Control.Template>
+                        </Control>
+                        <Rectangle Margin="10,10,10,30" >
+                            <Rectangle.Fill>
+                                <VisualBrush Visual="{StaticResource appbar_page_edit}" Stretch="Uniform"/>
+                            </Rectangle.Fill>
+                        </Rectangle>
+                        <TextBlock FontSize="15" Text="הזמנות מושהות" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="10,10,10,10"/>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="Button.IsPressed"
+                                 Value="True">
+                            <Setter Property="RenderTransform">
+                                <Setter.Value>
+                                    <ScaleTransform ScaleX="0.98"
+                                                    ScaleY="0.98"
+                                                    CenterX="0.5"
+                                                    CenterY="0.5" />
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+
+        <Button x:Name="btnSuspendOrder" Style="{StaticResource MyTileStyle}" Margin="5" Grid.Row="1" Grid.Column="2" Command="{Binding SuspendOrderCommand}">
+            <Button.Template>
+                <ControlTemplate>
+                    <Grid Background="{TemplateBinding Background}">
+                        <Rectangle Margin="10,10,10,30" >
+                            <Rectangle.Fill>
+                                <VisualBrush Visual="{StaticResource appbar_paperclip}" Stretch="Uniform"/>
+                            </Rectangle.Fill>
+                        </Rectangle>
+                        <TextBlock FontSize="15" Text="השהה הזמנה" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="10,10,10,10"/>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="Button.IsPressed"
+                                 Value="True">
+                            <Setter Property="RenderTransform">
+                                <Setter.Value>
+                                    <ScaleTransform ScaleX="0.98"
+                                                    ScaleY="0.98"
+                                                    CenterX="0.5"
+                                                    CenterY="0.5" />
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+
+        <Button x:Name="btnDeleteRow" Style="{StaticResource MyTileStyle}" Margin="5" Grid.Row="1" Grid.Column="3" Command="{Binding DeleteRowCommand}">
+            <Button.Template>
+                <ControlTemplate>
+                    <Grid Background="{TemplateBinding Background}">
+                        <Rectangle Margin="10,10,10,30" >
+                            <Rectangle.Fill>
+                                <VisualBrush Visual="{StaticResource appbar_cell_row_delete}" Stretch="Uniform"/>
+                            </Rectangle.Fill>
+                        </Rectangle>
+                        <TextBlock FontSize="15" Text="מחק פריט" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="10,10,10,10"/>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="Button.IsPressed"
+                                 Value="True">
+                            <Setter Property="RenderTransform">
+                                <Setter.Value>
+                                    <ScaleTransform ScaleX="0.98"
+                                                    ScaleY="0.98"
+                                                    CenterX="0.5"
+                                                    CenterY="0.5" />
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+
+        <Button x:Name="btnClear" Style="{StaticResource MyTileStyle}" Margin="5" Grid.Row="1" Grid.Column="4" Command="{Binding ClearCommand}">
+            <Button.Template>
+                <ControlTemplate>
+                    <Grid Background="{TemplateBinding Background}">
+                        <Rectangle Margin="10,10,10,30" >
+                            <Rectangle.Fill>
+                                <VisualBrush Visual="{StaticResource appbar_clear}" Stretch="Uniform"/>
+                            </Rectangle.Fill>
+                        </Rectangle>
+                        <TextBlock FontSize="15" Text="נקה" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="10,10,10,10"/>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="Button.IsPressed"
+                                 Value="True">
+                            <Setter Property="RenderTransform">
+                                <Setter.Value>
+                                    <ScaleTransform ScaleX="0.98"
+                                                    ScaleY="0.98"
+                                                    CenterX="0.5"
+                                                    CenterY="0.5" />
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+
+        <Button   Grid.Column="5" Grid.RowSpan="2" Background="{DynamicResource AccentColorBrush}" Content="&lt;-"  
+                  Style="{StaticResource MetroCircleButtonStyle}" Height="50" Width="50"
+                  Command="{Binding SearchOrderCommand}"/>
+
+        <controls:FlyoutsControl x:Name="flyoutsControl" Grid.ColumnSpan="6" Grid.RowSpan="2" Width="{Binding ActualWidth, ElementName=userControl, Mode=OneWay}">
+            <controls:Flyout IsOpen="{Binding IsMoreOptionOpen}"   Theme="Dark" TitleVisibility="Collapsed" CloseButtonVisibility="Collapsed" AnimateOpacity="True" Width="{Binding ActualWidth, ElementName=flyoutsControl, Mode=OneWay}" >
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Button Style="{StaticResource MyTileStyle}" Margin="5" Command="{Binding CashCommand}">
+                        <Button.Template>
+                            <ControlTemplate>
+                                <Grid Background="{TemplateBinding Background}">
+                                    <Rectangle Margin="10,10,10,30" >
+                                        <Rectangle.Fill>
+                                            <VisualBrush Visual="{StaticResource appbar_money}" Stretch="Uniform"/>
+                                        </Rectangle.Fill>
+                                    </Rectangle>
+                                    <TextBlock FontSize="20" Text="מזומן" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="10,10,10,10"/>
+                                </Grid>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="Button.IsPressed"
+                                 Value="True">
+                                        <Setter Property="RenderTransform">
+                                            <Setter.Value>
+                                                <ScaleTransform ScaleX="0.98"
+                                                    ScaleY="0.98"
+                                                    CenterX="0.5"
+                                                    CenterY="0.5" />
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+
+                    <Button Style="{StaticResource MyTileStyle}" Margin="5" Grid.Column="1" Command="{Binding CreditCommand}">
+                        <Button.Template>
+                            <ControlTemplate>
+                                <Grid Background="{TemplateBinding Background}">
+                                    <Rectangle Margin="10,10,10,30" >
+                                        <Rectangle.Fill>
+                                            <VisualBrush Visual="{StaticResource appbar_creditcard}" Stretch="Uniform"/>
+                                        </Rectangle.Fill>
+                                    </Rectangle>
+                                    <TextBlock FontSize="20" Text="אשראי" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="10,10,10,10"/>
+                                </Grid>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="Button.IsPressed"
+                                 Value="True">
+                                        <Setter Property="RenderTransform">
+                                            <Setter.Value>
+                                                <ScaleTransform ScaleX="0.98"
+                                                    ScaleY="0.98"
+                                                    CenterX="0.5"
+                                                    CenterY="0.5" />
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+
+                    <Button Style="{StaticResource MyTileStyle}" Margin="5" Grid.Column="2" Command="{Binding SelectCustomerCommand}">
+                        <Button.Template>
+                            <ControlTemplate>
+                                <Grid Background="{TemplateBinding Background}">
+                                    <Rectangle Margin="10,10,10,30" >
+                                        <Rectangle.Fill>
+                                            <VisualBrush Visual="{StaticResource appbar_people}" Stretch="Uniform"/>
+                                        </Rectangle.Fill>
+                                    </Rectangle>
+                                    <TextBlock FontSize="20" Text="לקוח" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="10,10,10,10"/>
+                                </Grid>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="Button.IsPressed"
+                                 Value="True">
+                                        <Setter Property="RenderTransform">
+                                            <Setter.Value>
+                                                <ScaleTransform ScaleX="0.98"
+                                                    ScaleY="0.98"
+                                                    CenterX="0.5"
+                                                    CenterY="0.5" />
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+
+                    <Button Style="{StaticResource MyTileStyle}" Margin="5" Grid.Column="3" Command="{Binding OpenDrawerCommand}">
+                        <Button.Template>
+                            <ControlTemplate>
+                                <Grid Background="{TemplateBinding Background}">
+                                    <Rectangle Margin="10,10,10,30" >
+                                        <Rectangle.Fill>
+                                            <VisualBrush Visual="{StaticResource appbar_key}" Stretch="Uniform"/>
+                                        </Rectangle.Fill>
+                                    </Rectangle>
+                                    <TextBlock FontSize="15" Text="פתיחת מגירה" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="10,10,10,10"/>
+                                </Grid>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="Button.IsPressed"
+                                 Value="True">
+                                        <Setter Property="RenderTransform">
+                                            <Setter.Value>
+                                                <ScaleTransform ScaleX="0.98"
+                                                    ScaleY="0.98"
+                                                    CenterX="0.5"
+                                                    CenterY="0.5" />
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+
+                    <Button Style="{StaticResource MyTileStyle}" Margin="5" Grid.Column="4" Command="{Binding ExitCommand}">
+                        <Button.Template>
+                            <ControlTemplate>
+                                <Grid Background="{TemplateBinding Background}">
+                                    <Rectangle Margin="10,10,10,30" >
+                                        <Rectangle.Fill>
+                                            <VisualBrush Visual="{StaticResource appbar_home}" Stretch="Uniform"/>
+                                        </Rectangle.Fill>
+                                    </Rectangle>
+                                    <TextBlock FontSize="15" Text="יציאה מהזמנה" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="10,10,10,10"/>
+                                </Grid>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="Button.IsPressed"
+                                 Value="True">
+                                        <Setter Property="RenderTransform">
+                                            <Setter.Value>
+                                                <ScaleTransform ScaleX="0.98"
+                                                    ScaleY="0.98"
+                                                    CenterX="0.5"
+                                                    CenterY="0.5" />
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+
+                    <Button Style="{StaticResource MyTileStyle}" Margin="5" Grid.Row="1" Grid.Column="0" Command="{Binding SearchOrderCommand}">
+                        <Button.Template>
+                            <ControlTemplate>
+                                <Grid Background="{TemplateBinding Background}">
+                                    <Rectangle Margin="10,10,10,30" >
+                                        <Rectangle.Fill>
+                                            <VisualBrush Visual="{StaticResource appbar_page_search}" Stretch="Uniform"/>
+                                        </Rectangle.Fill>
+                                    </Rectangle>
+                                    <TextBlock FontSize="15" Text="פעולות נוספות" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="10,10,10,10"/>
+                                </Grid>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="Button.IsPressed"
+                                 Value="True">
+                                        <Setter Property="RenderTransform">
+                                            <Setter.Value>
+                                                <ScaleTransform ScaleX="0.98"
+                                                    ScaleY="0.98"
+                                                    CenterX="0.5"
+                                                    CenterY="0.5" />
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+
+                    <Button Style="{StaticResource MyTileStyle}" Margin="5" Grid.Row="1" Grid.Column="1" Command="{Binding SuspendedOrdersCommand}">
+                        <Button.Template>
+                            <ControlTemplate>
+                                <Grid Background="{TemplateBinding Background}">
+                                    <Control Width="20" Height="20" VerticalAlignment="Top" HorizontalAlignment="Right" Visibility="Hidden">
+                                        <Control.Template>
+                                            <ControlTemplate>
+                                                <Grid>
+                                                    <Rectangle Fill="Red"/>
+                                                    <TextBlock FontSize="15" Text="0" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black" FontWeight="Bold"/>
+                                                </Grid>
+                                            </ControlTemplate>
+                                        </Control.Template>
+                                    </Control>
+                                    <Rectangle Margin="10,10,10,30" >
+                                        <Rectangle.Fill>
+                                            <VisualBrush Visual="{StaticResource appbar_page_edit}" Stretch="Uniform"/>
+                                        </Rectangle.Fill>
+                                    </Rectangle>
+                                    <TextBlock FontSize="15" Text="הזמנות מושהות" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="10,10,10,10"/>
+                                </Grid>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="Button.IsPressed"
+                                 Value="True">
+                                        <Setter Property="RenderTransform">
+                                            <Setter.Value>
+                                                <ScaleTransform ScaleX="0.98"
+                                                    ScaleY="0.98"
+                                                    CenterX="0.5"
+                                                    CenterY="0.5" />
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+
+                    <Button Style="{StaticResource MyTileStyle}" Margin="5" Grid.Row="1" Grid.Column="2" Command="{Binding SuspendOrderCommand}">
+                        <Button.Template>
+                            <ControlTemplate>
+                                <Grid Background="{TemplateBinding Background}">
+                                    <Rectangle Margin="10,10,10,30" >
+                                        <Rectangle.Fill>
+                                            <VisualBrush Visual="{StaticResource appbar_paperclip}" Stretch="Uniform"/>
+                                        </Rectangle.Fill>
+                                    </Rectangle>
+                                    <TextBlock FontSize="15" Text="השהה הזמנה" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="10,10,10,10"/>
+                                </Grid>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="Button.IsPressed"
+                                 Value="True">
+                                        <Setter Property="RenderTransform">
+                                            <Setter.Value>
+                                                <ScaleTransform ScaleX="0.98"
+                                                    ScaleY="0.98"
+                                                    CenterX="0.5"
+                                                    CenterY="0.5" />
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+
+                    <Button  Style="{StaticResource MyTileStyle}" Margin="5" Grid.Row="1" Grid.Column="3" Command="{Binding DeleteRowCommand}">
+                        <Button.Template>
+                            <ControlTemplate>
+                                <Grid Background="{TemplateBinding Background}">
+                                    <Rectangle Margin="10,10,10,30" >
+                                        <Rectangle.Fill>
+                                            <VisualBrush Visual="{StaticResource appbar_cell_row_delete}" Stretch="Uniform"/>
+                                        </Rectangle.Fill>
+                                    </Rectangle>
+                                    <TextBlock FontSize="15" Text="מחק פריט" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="10,10,10,10"/>
+                                </Grid>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="Button.IsPressed"
+                                 Value="True">
+                                        <Setter Property="RenderTransform">
+                                            <Setter.Value>
+                                                <ScaleTransform ScaleX="0.98"
+                                                    ScaleY="0.98"
+                                                    CenterX="0.5"
+                                                    CenterY="0.5" />
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+
+                    <Button Style="{StaticResource MyTileStyle}" Margin="5" Grid.Row="1" Grid.Column="4" Command="{Binding ClearCommand}">
+                        <Button.Template>
+                            <ControlTemplate>
+                                <Grid Background="{TemplateBinding Background}">
+                                    <Rectangle Margin="10,10,10,30" >
+                                        <Rectangle.Fill>
+                                            <VisualBrush Visual="{StaticResource appbar_clear}" Stretch="Uniform"/>
+                                        </Rectangle.Fill>
+                                    </Rectangle>
+                                    <TextBlock FontSize="15" Text="נקה" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="10,10,10,10"/>
+                                </Grid>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="Button.IsPressed"
+                                 Value="True">
+                                        <Setter Property="RenderTransform">
+                                            <Setter.Value>
+                                                <ScaleTransform ScaleX="0.98"
+                                                    ScaleY="0.98"
+                                                    CenterX="0.5"
+                                                    CenterY="0.5" />
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+
+                    <Button   Grid.Column="5" Grid.RowSpan="2" Background="{DynamicResource AccentColorBrush}" Content="&lt;-"  
+                  Style="{StaticResource MetroCircleButtonStyle}" Height="50" Width="50"
+                  Command="{Binding SearchOrderCommand}"/>
+                </Grid>
+            </controls:Flyout>
+        </controls:FlyoutsControl>
+    </Grid>
+</UserControl>

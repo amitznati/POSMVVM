@@ -1,0 +1,147 @@
+﻿<controls:MetroWindow x:Name="window" 
+                      x:Class="POS.MainPOS.Views.CashDialog"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:dialogs="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:views="clr-namespace:POS.MainPOS.Views"
+             GlowBrush="{DynamicResource AccentColorBrush}"   
+             BorderThickness="0"
+             xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:vm="clr-namespace:POS.MainPOS.ViewModels"
+             mc:Ignorable="d" 
+                      d:DataContext="{d:DesignInstance vm:CashDialogViewModel}"
+             d:DesignHeight="600" d:DesignWidth="700"   Width="700" Height="600" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" ShowInTaskbar="False" WindowStyle="None" IsWindowDraggable="False"  >
+    <Window.Resources>
+        <BitmapImage x:Key="1NIS" UriSource="../Media/1nis.gif" />
+        <BitmapImage x:Key="2NIS" UriSource="../Media/2_NIS.gif" />
+        <BitmapImage x:Key="50Ag" UriSource="../Media/50Ag.gif" />
+        <BitmapImage x:Key="10Ag" UriSource="../Media/10Ag.gif" />
+        <BitmapImage x:Key="10NIS" UriSource="../Media/10NIS.gif" />
+        <BitmapImage x:Key="5NIS" UriSource="../Media/5NIS.gif" />
+        <BitmapImage x:Key="100NIS" UriSource="../Media/100_NIS_Bill.jpg" />
+        <BitmapImage x:Key="200NIS" UriSource="../Media/200_NIS_Bill.jpg" />
+        <BitmapImage x:Key="20NIS" UriSource="../Media/20_NIS_Bill.jpg" />
+        <BitmapImage x:Key="50NIS" UriSource="../Media/50_NIS_Bill.jpg" />
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="250"/>
+            <RowDefinition Height="100"/>
+            <RowDefinition/>
+
+        </Grid.RowDefinitions>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button Margin="5" Style="{StaticResource MyTileStyle}" Click="Button_Click" CommandParameter="200">
+                <Button.Background>
+                    <ImageBrush ImageSource="{StaticResource 200NIS}"/>
+                </Button.Background>
+            </Button>
+            <Button Grid.Column="1" Margin="5" Style="{StaticResource MyTileStyle}" Click="Button_Click" CommandParameter="100">
+                <Button.Background>
+                    <ImageBrush ImageSource="{StaticResource 100NIS}"/>
+                </Button.Background>
+            </Button>
+            <Button Grid.Row="1" Margin="5" Style="{StaticResource MyTileStyle}" Click="Button_Click" CommandParameter="50">
+                <Button.Background>
+                    <ImageBrush ImageSource="{StaticResource 50NIS}"/>
+                </Button.Background>
+            </Button>
+            <Button Grid.Column="1" Grid.Row="1" Margin="5" Style="{StaticResource MyTileStyle}" Click="Button_Click" CommandParameter="20">
+                <Button.Background>
+                    <ImageBrush ImageSource="{StaticResource 20NIS}"/>
+                </Button.Background>
+            </Button>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Margin="5" Style="{StaticResource MyTileStyle}" Click="Button_Click" CommandParameter="0.1">
+                <Button.Background>
+                    <ImageBrush ImageSource="{StaticResource 10Ag}"/>
+                </Button.Background>
+            </Button>
+            <Button Grid.Column="1" Margin="5" Style="{StaticResource MyTileStyle}" Click="Button_Click" CommandParameter="0.5">
+                <Button.Background>
+                    <ImageBrush ImageSource="{StaticResource 50Ag}"/>
+                </Button.Background>
+            </Button>
+            <Button Grid.Column="2" Margin="5" Style="{StaticResource MyTileStyle}" Click="Button_Click" CommandParameter="1">
+                <Button.Background>
+                    <ImageBrush ImageSource="{StaticResource 1NIS}"/>
+                </Button.Background>
+            </Button>
+            <Button Grid.Column="3" Margin="5" Style="{StaticResource MyTileStyle}" Click="Button_Click" CommandParameter="2">
+                <Button.Background>
+                    <ImageBrush ImageSource="{StaticResource 2NIS}"/>
+                </Button.Background>
+            </Button>
+            <Button Grid.Column="4" Margin="5" Style="{StaticResource MyTileStyle}" Click="Button_Click" CommandParameter="5">
+                <Button.Background>
+                    <ImageBrush ImageSource="{StaticResource 5NIS}"/>
+                </Button.Background>
+            </Button>
+            <Button Grid.Column="5" Margin="5" Style="{StaticResource MyTileStyle}" Click="Button_Click" CommandParameter="10">
+                <Button.Background>
+                    <ImageBrush ImageSource="{StaticResource 10NIS}"/>
+                </Button.Background>
+            </Button>
+        </Grid>
+        <Grid Grid.Row="2" FlowDirection="RightToLeft">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <views:CalculatorView Grid.Column="2" DataContext="{Binding CalcVM}"/>
+            <Button x:Name="btnFromCalc" Command="{Binding SumFromCalc}" Background="{StaticResource AccentColorBrush}" Content="&lt;-" Grid.Column="1" Style="{StaticResource MetroCircleButtonStyle}" Height="50" Width="50"/>
+            <Grid >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="סהכ לתשלום" Margin="3"/>
+                <TextBlock Grid.Column="1"  Margin="3"  Text="{Binding ToPay}" FontSize="40" Foreground="Red"/>
+                <TextBlock Grid.Row="1" Text="שולם" Margin="3" />
+                <TextBlock Grid.Row="1"  Grid.Column="1"  Margin="3" FontSize="20" Text="{Binding Payed}"/>
+                <TextBlock Grid.Row="2" Text="נשאר לתשלום" Margin="3" />
+                <TextBlock Grid.Row="2"  Grid.Column="1"  Margin="3" FontSize="20" Text="{Binding LeftToPay}"/>
+                <TextBlock Grid.Row="3" Text="עודף" Margin="3"/>
+                <TextBlock Grid.Row="3"  Grid.Column="1"  Margin="3" FontSize="20" Text="{Binding Change}" Foreground="Green"/>
+                <Grid Grid.Row="4" Grid.ColumnSpan="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Button Style="{DynamicResource MyTileStyle}" Content="קבל" FontSize="20" IsDefault="True" Click="AcceptClick"/>
+                    <Button Style="{StaticResource MyTileStyle}" Content="בטל" Grid.Column="1" Background="{DynamicResource ValidationSummaryColor5}" Margin="3" FontSize="20" IsCancel="True"/>
+                    <Button Content="נקה" Grid.Column="2" Command="{Binding ClearCommand}"/>
+                </Grid>
+            </Grid>
+        </Grid>
+
+    </Grid>
+</controls:MetroWindow>

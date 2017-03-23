@@ -1,0 +1,34 @@
+﻿<UserControl x:Class="POS_WPF.Views.CustomerListView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:filter="clr-namespace:DataGridFilterLibrary;assembly=DataGridFilterLibrary"
+             xmlns:views="clr-namespace:POS_WPF.Views"
+             xmlns:vm="clr-namespace:POS_WPF.ViewModels"
+             xmlns:p="clr-namespace:POS_WPF.Properties"
+             mc:Ignorable="d" 
+             d:DataContext="{d:DesignInstance Type=vm:ProductListViewModel}"
+             d:DesignHeight="1000" d:DesignWidth="1000"  FlowDirection="RightToLeft">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <DataGrid IsReadOnly="True" SelectedItem="{Binding SelectedEntity}" ItemsSource="{Binding EntityList}" Grid.Row="1" AutoGenerateColumns="False"
+                   ColumnHeaderStyle="{StaticResource {ComponentResourceKey TypeInTargetAssembly={x:Type filter:DataGridHeaderFilterControl},ResourceId=DataGridHeaderFilterControlStyle}}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="{x:Static p:Resources.ID}" Binding="{Binding ID}"/>
+                <DataGridTextColumn Header="{x:Static p:Resources.FIRSTNAME}" Binding="{Binding FirstName}"/>
+                <DataGridTextColumn Header="{x:Static p:Resources.LASTNAME}" Binding="{Binding LastName}"/>
+                <DataGridTextColumn Header="{x:Static p:Resources.EMAIL}" Binding="{Binding Email}"/>
+                <DataGridTextColumn Header="{x:Static p:Resources.BIRTHDAY}" Binding="{Binding Birthday}"/>
+                <DataGridTextColumn Header="{x:Static p:Resources.PHONENUM}" Binding="{Binding PhoneNum}"/>
+
+            </DataGrid.Columns>
+        </DataGrid>
+        <ContentControl Grid.Row="1" Grid.Column="1" Margin="5">
+            <views:CustomerView DataContext="{Binding EntityViewModel}"  IsEnabled="False"/>
+        </ContentControl>
+    </Grid>
+</UserControl>

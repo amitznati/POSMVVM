@@ -1,0 +1,16 @@
+﻿using POSEntities.Entities;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace POS.Data.Repository.Core.Repository
+{
+    public interface IOrderRepository:IRepository<Order>
+    {
+        int GetDailyNum();
+        void SaveOrder(Order order);
+        List<Order> GetAllOpenInZ();
+    }
+}

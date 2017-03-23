@@ -1,0 +1,45 @@
+﻿<control:MetroWindow x:Class="POS.DesktopClient.Views.MainPos.SelectDiaplyableItemDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:p="clr-namespace:POS.DesktopClient.Properties"
+        xmlns:filter="clr-namespace:DataGridFilterLibrary;assembly=DataGridFilterLibrary"
+        xmlns:control="http://metro.mahapps.com/winfx/xaml/controls"
+        Title="SelectDiaplyableItemDialog" Height="500" Width="700" Style="{DynamicResource MetroDialogStyle}" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <TabControl>
+            <TabItem Header="{x:Static p:Resources.PRODUCTS}">
+                <DataGrid IsReadOnly="True" ItemsSource="{Binding Products}"  x:Name="ProductList" SelectedValue="{Binding SelectedItem}" AutoGenerateColumns="False"
+                  ColumnHeaderStyle="{StaticResource {ComponentResourceKey TypeInTargetAssembly={x:Type filter:DataGridHeaderFilterControl},ResourceId=DataGridHeaderFilterControlStyle}}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="{x:Static p:Resources.ID}" Binding="{Binding ID}"/>
+                        <DataGridTextColumn Header="{x:Static p:Resources.PRODUCTNAME}" Binding="{Binding prodName}"/>
+                        <DataGridTextColumn Header="{x:Static p:Resources.DEPARTMENT}" Binding="{Binding Department.DeptName}"/>
+                        <DataGridTextColumn Header="{x:Static p:Resources.GROUP}" Binding="{Binding Group.GroupName}"/>
+                        <DataGridTextColumn Header="{x:Static p:Resources.SALEPRICE}" Binding="{Binding salePrice}"/>
+                        <DataGridTextColumn Header="{x:Static p:Resources.VANDOR}" Binding="{Binding Vendor.CompanyName}"/>
+                        <DataGridTextColumn Header="{x:Static p:Resources.BAYPRICE}" Binding="{Binding bayPrice}"/>
+                        <DataGridTextColumn Header="{x:Static p:Resources.LASTUPDATEDATE}" Binding="{Binding lastUpdateDate}"/>
+                        <DataGridTextColumn Header="{x:Static p:Resources.BARCODE}" Binding="{Binding barcode}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+            <TabItem Header="{x:Static p:Resources.MENUS}">
+                <DataGrid IsReadOnly="True" SelectedItem="{Binding SelectedItem}" ItemsSource="{Binding Menus}" Grid.Row="1" AutoGenerateColumns="False"
+                   ColumnHeaderStyle="{StaticResource {ComponentResourceKey TypeInTargetAssembly={x:Type filter:DataGridHeaderFilterControl},ResourceId=DataGridHeaderFilterControlStyle}}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="{x:Static p:Resources.ID}" Binding="{Binding ID}"/>
+                        <DataGridTextColumn Header="{x:Static p:Resources.MENUNAME}" Binding="{Binding Name}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+        </TabControl>
+        <WrapPanel Grid.Row="1" HorizontalAlignment="Center" Orientation="Horizontal">
+            <Button x:Name="btnSelect" Click="btnSelect_Click" Style="{DynamicResource MyTileStyle}" Content="{x:Static p:Resources.SELECT}" Width="100"/>
+            <Button x:Name="btnCancel" Click="btnCancel_Click" Style="{DynamicResource MyTileStyle}" Content="{x:Static p:Resources.CANCEL}" Width="100"/>
+        </WrapPanel>
+    </Grid>
+</control:MetroWindow>
