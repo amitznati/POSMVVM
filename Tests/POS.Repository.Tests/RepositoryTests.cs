@@ -9,13 +9,14 @@ namespace POS.Repository.Tests
     [TestClass]
     public class RepositoryTests
     {
+        /*
         [TestMethod]
         public void GetAllEmployee()
         {
             var emps = UnitOfWork.get().Employees.GetAll();
             Assert.IsNotNull(emps);
         }
-
+        */
         
     }
 }
